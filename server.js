@@ -15,7 +15,7 @@ app.use(express.json())
 
 app.use(cors({
     credentials:true,
-    origin:['http://localhost:3000','https://e-com-admin-frontend.onrender.com/','https://e-com-admin-frontend.vercel.app']
+    origin:['http://localhost:3000','https://e-com-admin-frontend.onrender.com','https://e-com-admin-frontend.vercel.app']
 }))
 app.use('/public',express.static(path.join(__dirname,'upload')))
 //mongodb connect
