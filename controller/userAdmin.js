@@ -48,14 +48,15 @@ exports.signin = async (req, res, next) => {
             const { _id, name, mobilenumber, role } = data;
             const today=new Date().toLocaleDateString()
             const token = await authToken({ _id: _id, role: role,Date:today });
-            res.cookie("jwt", token, {
-              httpsOnly: true,
-              maxAge: 24 * 60 * 60 * 1000,
-            });
+            // res.cookie("jwt", token, {
+            //   httpsOnly: true,
+            //   maxAge: 24 * 60 * 60 * 1000,
+            // });
+            // resSucc_data(token, 200, sell);
            
         await employeeOpens(req,res,next,_id,today)
        
-             resSucc_data(res, 200, "successfully signin");
+             resSucc_data(res, 200,token );
             
           } else {
             resErr(res, 401, "invalied password");

@@ -3,8 +3,17 @@ const { resErr } = require("../controller/ErrorHandle/res.error");
 
 exports.require_auth = (req, res, next) => {
   try {
-    const jwt_token = req.cookies["jwt"];
-  if (!jwt_token) resErr(res, 400, "cookies not found. you should login");
+    // const jwt_token = req.cookies["jwt"];
+/////////
+    if (
+      !req.headers.authorization &&
+      !req.headers.authorization.startsWith("Bearer")
+    ) resErr(res, 400, "cookies not found. you should login");
+    
+    ///////
+
+    
+  // if (!jwt_token) resErr(res, 400, "cookies not found. you should login");
 
   next();
   } catch (error) {
@@ -17,7 +26,8 @@ exports.require_auth = (req, res, next) => {
 exports.isAdmin = async (req, res, next) => {
  try {
   
-  req.user = await verifyToken(req.cookies["jwt"]);
+  req.user = await verifyToken(req.headers.authorization.split(" ")[1]);
+  console.log(req.user)
   if(req.user.role == 'admin' || req.user.role == 'super_admin') {next() ;
  }
  else{
@@ -34,7 +44,7 @@ exports.is_super_Admin = async (req, res, next) => {
   
   try {
 
-   req.user = await verifyToken(req.cookies["jwt"]);
+   req.user = await verifyToken(req.headers.authorization.split(" ")[1]);
    if(req.user.role == 'super_admin') { next()}
  else{
   resErr(res, 400, "Access denied. you are not Super Admin");
