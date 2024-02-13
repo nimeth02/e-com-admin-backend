@@ -15,7 +15,7 @@ app.use(express.json())
 
 app.use(cors({
     credentials:true,
-    origin:['http://localhost:3000']
+    origin:['http://localhost:3000','https://ecom-admin-frontend.onrender.com']
 }))
 app.use('/public',express.static(path.join(__dirname,'upload')))
 //mongodb connect
